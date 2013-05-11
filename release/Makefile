@@ -117,6 +117,10 @@ system: packagesystem
 .if !defined(NODOC)
 	cp reldoc/* release
 .endif
+.if defined(VIRTBSD)
+	# Install custom packages and prepare live environment
+	sh ${.CURDIR}/scripts/virtbsd.sh system ${PORTSDIR} ${WORLDDIR} ${.OBJDIR}/release
+.endif
 # Set up installation environment
 	ln -s /tmp/bsdinstall_etc/resolv.conf release/etc/resolv.conf
 	echo sendmail_enable=\"NONE\" > release/etc/rc.conf
